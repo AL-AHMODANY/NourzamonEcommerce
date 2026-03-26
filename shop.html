@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Noor Bazaar | Shop - Islamic Items</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://i.pinimg.com/736x/58/67/db/5867db7b9a402c14211202425b741154.jpg" type="image/x-icon">
+    <style>
+        /* Copy all styles from index.html */
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a0f1c;
+            --card-light: #ffffff;
+            --card-dark: #141b2b;
+            --text-light: #212529;
+            --text-dark: #e9ecef;
+            --primary-green: #2ecc71;
+            --dark-green: #1f8b4c;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .navbar,
+        body.dark-mode footer {
+            background-color: #0f172a !important;
+        }
+
+        body.dark-mode .card {
+            background-color: var(--card-dark);
+            border: 1px solid #2d3748;
+        }
+
+        .navbar {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            background: var(--primary-green);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 35px rgba(46, 204, 113, 0.25);
+        }
+
+        .product-card img {
+            transition: transform 0.6s ease;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .btn-success {
+            background: var(--primary-green);
+            border: none;
+            border-radius: 50px;
+        }
+
+        .btn-success:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn {
+            transition: all 0.3s;
+            border-radius: 50px;
+            padding: 10px 28px;
+            margin: 5px;
+            border: 2px solid var(--primary-green);
+            background: transparent;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .cart-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1100;
+            background: var(--primary-green);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 24px;
+            animation: slideInRight 0.4s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-card img {
+                height: 200px;
+            }
+
+            .filter-btn {
+                padding: 6px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-success" href="index.html"><i class="bi bi-moon-stars-fill"></i> Noor
+                Zamon</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="shop.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="bi bi-cart-fill"></i> Cart
+                            <span id="cartCountBadge"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button id="darkModeToggle" class="theme-toggle"><i class="bi bi-moon-stars"></i>
+                            Dark/Light</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-success">Our Islamic Collection</h1>
+            <div class="divider bg-success mx-auto" style="width: 80px; height: 3px;"></div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" id="filterButtons">
+            <button class="filter-btn active" data-category="all">All Items</button>
+            <button class="filter-btn" data-category="Jalab">Jalabiya</button>
+            <button class="filter-btn" data-category="Tasbih">Tasbih</button>
+            <button class="filter-btn" data-category="Caps">Caps</button>
+            <button class="filter-btn" data-category="Qur’an">Qur'an</button>
+            <button class="filter-btn" data-category="Perfumes">Perfumes</button>
+        </div>
+        <div class="row g-4" id="productsContainer"></div>
+    </section>
+
+    <footer class="bg-dark text-white pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-success">Noor Zamon</h5>
+                    <p>Your trusted destination for authentic Islamic goods.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50">Home</a></li>
+                        <li><a href="shop.html" class="text-white-50">Shop</a></li>
+                        <li><a href="about.html" class="text-white-50">About</a></li>
+                        <li><a href="contact.html" class="text-white-50">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Connect</h5>
+                    <i class="bi bi-facebook fs-4 me-3"></i>
+                    <i class="bi bi-instagram fs-4 me-3"></i>
+                    <i class="bi bi-twitter fs-4"></i>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center small">© 2026 Noor Islamic Zamaan</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // SAME PRODUCT DATABASE AS INDEX
+        const products = [
+            { id: 1, name: "Embroidered Silk Jalabiya", category: "Jalab", price: 59.99, image: "././images/jalab.png" },
+            { id: 2, name: "Amber Tasbih (99 Beads)", category: "Tasbih", price: 24.99, image: "https://i.pinimg.com/736x/75/f4/dd/75f4dd250841bde5fbd3d7b343105e83.jpg" },
+            { id: 3, name: "Classic Kufi Cap", category: "Caps", price: 15.99, image: "https://i.pinimg.com/1200x/ca/72/0f/ca720f296d248943260a1f40b2655f5b.jpg" },
+            { id: 4, name: "Holy Qur'an (Translation)", category: "Qur’an", price: 34.99, image: "https://i.pinimg.com/1200x/33/28/5a/33285a125e3ebf335645be8e17541944.jpg" },
+            { id: 5, name: "Oud Al-Malaki Perfume", category: "Perfumes", price: 49.99, image: "https://i.pinimg.com/1200x/78/74/ef/7874eff9a2b638c722f9a273dadb5de3.jpg" },
+            { id: 6, name: "Premium Moroccan Jalabiya", category: "Jalab", price: 79.99, image: "https://i.pinimg.com/1200x/5d/fe/ac/5dfeac0fa45561f629a745709944e953.jpg" },
+            { id: 7, name: "Crystal Tasbih (Green Jade)", category: "Tasbih", price: 29.99, image: "https://i.pinimg.com/1200x/0b/91/b8/0b91b8588a2e3d74e403a4119918ce59.jpg" },
+            { id: 8, name: "Leather Kufi Cap", category: "Caps", price: 22.99, image: "https://i.pinimg.com/1200x/97/18/59/971859cbd790064f4956ca25aa5cc2be.jpg" },
+            { id: 9, name: "Musk Rose Perfume Oil", category: "Perfumes", price: 34.99, image: "https://i.pinimg.com/1200x/f0/0f/86/f00f8600ca203ba640b564e17b9eeea3.jpg" },
+            { id: 10, name: "Children's Jalabiya Set", category: "Jalab", price: 39.99, image: "https://i.pinimg.com/736x/3d/f7/c1/3df7c1cfb9ab82c56ff0f636ece06895.jpg" }
+        ];
+
+        let cart = JSON.parse(localStorage.getItem('islamicCart')) || [];
+        let currentCategory = 'all';
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartCountBadge');
+            if (badge) {
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.innerText = total;
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('islamicCart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'cart-toast';
+            toast.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        window.addToCart = function (id, name, price, image) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+            saveCart();
+            showToast(`${name} added to cart!`);
+
+            const btn = document.querySelector(`button[data-id='${id}']`);
+            if (btn) {
+                btn.innerHTML = '<i class="bi bi-check-lg"></i> Added!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="bi bi-cart-plus"></i> Add to Cart';
+                }, 1500);
+            }
+        };
+
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            const filtered = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center py-5"><h3>No products found</h3></div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => `
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden product-card">
+          <img src="${p.image}" class="card-img-top" alt="${p.name}">
+          <div class="card-body text-center">
+            <h5 class="fw-bold">${p.name}</h5>
+            <p class="text-success fw-bold fs-5">$${p.price.toFixed(2)}</p>
+            <button class="btn btn-success w-100 add-to-cart-btn" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-image="${p.image}">
+              <i class="bi bi-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const id = parseInt(this.dataset.id);
+                    const name = this.dataset.name;
+                    const price = parseFloat(this.dataset.price);
+                    const image = this.dataset.image;
+                    window.addToCart(id, name, price, image);
+                });
+            });
+        }
+
+        // Filter setup
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                renderProducts();
+            });
+        });
+
+        // Dark Mode
+        const darkToggle = document.getElementById('darkModeToggle');
+        if (localStorage.getItem('darkMode') === 'enabled') document.body.classList.add('dark-mode');
+        darkToggle?.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        });
+
+        renderProducts();
+        updateCartBadge();
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'islamicCart') {
+                cart = JSON.parse(e.newValue) || [];
+                updateCartBadge();
+            }
+        });
+    </script>
+</body>
+
+</html>

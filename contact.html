@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Noor Bazaar | Contact Us - Get in Touch</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://i.pinimg.com/736x/58/67/db/5867db7b9a402c14211202425b741154.jpg"
+        type="image/x-icon">
+    <style>
+        /* Global Dark Mode & Animations */
+        :root {
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a0f1c;
+            --card-light: #ffffff;
+            --card-dark: #141b2b;
+            --text-light: #212529;
+            --text-dark: #e9ecef;
+            --primary-green: #2ecc71;
+            --dark-green: #1f8b4c;
+            --error-red: #e74c3c;
+            --success-green: #27ae60;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .navbar,
+        body.dark-mode footer {
+            background-color: #0f172a !important;
+        }
+
+        body.dark-mode .card {
+            background-color: var(--card-dark);
+            color: var(--text-dark);
+            border: 1px solid #2d3748;
+        }
+
+        body.dark-mode .bg-light {
+            background-color: #111827 !important;
+        }
+
+        body.dark-mode .form-control {
+            background-color: #1f2937;
+            border-color: #374151;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .form-control:focus {
+            background-color: #2d3748;
+            border-color: var(--primary-green);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .contact-info-card {
+            background-color: #1f2937;
+        }
+
+        /* Navbar */
+        .navbar {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            background: var(--primary-green);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: var(--dark-green);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #1e7e34, #0b5e2e);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .page-header {
+            background: linear-gradient(135deg, #0f172a, #1e3a2f);
+        }
+
+        .page-header::before {
+            content: "﷽";
+            font-size: 140px;
+            position: absolute;
+            opacity: 0.08;
+            right: 20px;
+            bottom: 0;
+            font-family: serif;
+            pointer-events: none;
+        }
+
+        .page-header::after {
+            content: "📞";
+            font-size: 80px;
+            position: absolute;
+            opacity: 0.05;
+            left: 20px;
+            top: 20px;
+            pointer-events: none;
+        }
+
+        /* Contact Cards */
+        .contact-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            height: 100%;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(46, 204, 113, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 48px;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Form Styles */
+        .contact-form-card {
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-message {
+            background-color: var(--success-green);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Map Container */
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+
+        .map-placeholder {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .map-placeholder:hover {
+            transform: scale(1.02);
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .faq-item {
+            border-bottom-color: #2d3748;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 0;
+            color: #666;
+        }
+
+        body.dark-mode .faq-answer {
+            color: #9ca3af;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 15px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+
+        /* Button Styles */
+        .btn-submit {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Social Links */
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-green);
+            transition: all 0.3s;
+            margin: 0 5px;
+        }
+
+        .social-link:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header::before {
+                font-size: 80px;
+            }
+
+            .contact-info-card {
+                padding: 20px;
+            }
+
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sticky Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-success" href="index.html">
+                <i class="bi bi-moon-stars-fill"></i> Noor Zamon
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="bi bi-cart-fill"></i> Cart
+                            <span id="cartCountBadge"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button id="darkModeToggle" class="theme-toggle"><i class="bi bi-moon-stars"></i>
+                            Dark/Light</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header text-white text-center py-5">
+        <div class="container" data-aos="fade-up" data-aos-duration="800">
+            <h1 class="display-3 fw-bold"><i class="bi bi-envelope-paper-heart"></i> Contact Us</h1>
+            <p class="lead fs-4 mt-3">We'd love to hear from you! Reach out with any questions or feedback.</p>
+            <div class="divider bg-white mx-auto" style="width: 80px; height: 3px; margin-top: 20px;"></div>
+        </div>
+    </section>
+
+    <!-- Contact Info Cards -->
+    <section class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-info-card">
+                    <i class="bi bi-geo-alt-fill contact-icon"></i>
+                    <h4 class="fw-bold">Visit Us</h4>
+                    <p>Imodi-Imosan, Ogun State, Nigeria</p>
+                    <small class="text-muted"><i class="bi bi-clock"></i> Mon-Sat: 9AM - 8PM</small>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="contact-info-card">
+                    <i class="bi bi-telephone-fill contact-icon"></i>
+                    <h4 class="fw-bold">Call Us</h4>
+                    <p><strong>Main:</strong> +234 812 911 7778<br>
+                        <strong>WhatsApp:</strong> +234 812 911 7778<br>
+                        <strong>Toll Free:</strong> 1-800-NOOR-ZMN
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="contact-info-card">
+                    <i class="bi bi-envelope-fill contact-icon"></i>
+                    <h4 class="fw-bold">Email Us</h4>
+                    <p><strong>Customer Support:</strong><br>support@noorzamon.com<br>
+                        <strong>Wholesale:</strong><br>wholesale@noorzamon.com<br>
+                        <strong>Careers:</strong><br>careers@noorzamon.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form & Map Section -->
+    <section class="container py-4">
+        <div class="row g-5">
+            <!-- Contact Form -->
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                <div class="card contact-form-card border-0 shadow-lg">
+                    <div class="card-body p-4 p-lg-5">
+                        <h2 class="fw-bold text-success mb-3"><i class="bi bi-chat-dots-fill"></i> Send a Message</h2>
+                        <p class="text-muted mb-4">We'll get back to you within 24 hours, Insha'Allah.</p>
+
+                        <div id="successMessage" class="success-message mb-4">
+                            <i class="bi bi-check-circle-fill me-2"></i> JazakAllah Khair! Your message has been sent
+                            successfully. We'll reply soon.
+                        </div>
+
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name">
+                                <div class="error-message" id="nameError">Please enter your full name</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                                <div class="error-message" id="emailError">Please enter a valid email address</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 123-4567">
+                                <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject *</label>
+                                <select class="form-select" id="subject">
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="order">Order Support</option>
+                                    <option value="product">Product Information</option>
+                                    <option value="wholesale">Wholesale Request</option>
+                                    <option value="feedback">Feedback & Suggestions</option>
+                                </select>
+                                <div class="error-message" id="subjectError">Please select a subject</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Your Message *</label>
+                                <textarea class="form-control" id="message" rows="5"
+                                    placeholder="Write your message here..."></textarea>
+                                <div class="error-message" id="messageError">Please enter your message</div>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                <i class="bi bi-send-fill"></i> Send Message
+                            </button>
+                        </form>
+
+                        <div class="mt-4 text-center">
+                            <p class="small text-muted">We respect your privacy. Your information is safe with us.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map & Business Hours -->
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+                <div class="map-container mb-4">
+                    <div id="mapPlaceholder" class="map-placeholder"
+                        onclick="alert('Interactive map would load here. Location: 123 Islamic Center Road, New York, NY')">
+                        <i class="bi bi-map fs-1 mb-3"></i>
+                        <h4>📍 Click to View Location</h4>
+                        <p class="mb-0">Imodi-Imosan, Ogun State, Nigeria</p>
+                        <small><i class="bi bi-compass"></i> Open in Google Maps</small>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold text-success mb-3"><i class="bi bi-calendar-week"></i> Business Hours</h4>
+                        <div class="row">
+                            <div class="col-6">
+                                <p><strong>Monday - Friday</strong><br>9:00 AM - 8:00 PM</p>
+                                <p><strong>Saturday</strong><br>10:00 AM - 6:00 PM</p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Sunday</strong><br>Closed (Family Day)</p>
+                                <p><strong>Holidays</strong><br>Limited hours, check announcements</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4 class="fw-bold text-success mb-3"><i class="bi bi-share-fill"></i> Connect With Us</h4>
+                        <div class="d-flex justify-content-start gap-2">
+                            <a href="#" class="social-link"><i class="bi bi-facebook fs-5"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-instagram fs-5"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-twitter fs-5"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-whatsapp fs-5"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-youtube fs-5"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-tiktok fs-5"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-down">
+                <h2 class="fw-bold text-success"><i class="bi bi-question-circle-fill"></i> Frequently Asked Questions
+                </h2>
+                <div class="divider bg-success mx-auto" style="width: 80px; height: 3px;"></div>
+                <p class="text-muted">Quick answers to common questions</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="faq-list">
+                        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="faq-question">
+                                <span>How long does shipping take?</span>
+                                <i class="bi bi-chevron-down faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Domestic orders typically arrive within 3-5 business days. International orders take
+                                7-14 business days depending on location.
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="faq-question">
+                                <span>Do you offer international shipping?</span>
+                                <i class="bi bi-chevron-down faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Yes! We ship worldwide. Shipping rates vary by location and will be calculated at
+                                checkout.
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="faq-question">
+                                <span>What is your return policy?</span>
+                                <i class="bi bi-chevron-down faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                We accept returns within 30 days of purchase. Items must be unused and in original
+                                packaging. Contact our support team to initiate a return.
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                            <div class="faq-question">
+                                <span>Are your products halal certified?</span>
+                                <i class="bi bi-chevron-down faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Yes, all our products are sourced from halal-certified suppliers. We ensure strict
+                                adherence to Islamic guidelines.
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                            <div class="faq-question">
+                                <span>Do you offer wholesale discounts?</span>
+                                <i class="bi bi-chevron-down faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Yes, we offer special pricing for bulk orders. Please email wholesale@noorbazaar.com for
+                                more information.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-success">Noor Zaman</h5>
+                    <p>Your trusted destination for authentic Islamic gifts and essentials. Serving the Ummah with
+                        excellence since 2020.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="shop.html" class="text-white-50 text-decoration-none">Shop</a></li>
+                        <li><a href="about.html" class="text-white-50 text-decoration-none">About</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for updates and exclusive offers</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email" id="footerEmail">
+                        <button class="btn btn-success"
+                            onclick="alert('JazakAllah Khair! Subscribed successfully.')">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-secondary">
+            <div class="text-center text-white-50 small">© 2026 Noor Islamic Zamaan | Faith, Beauty & Excellence | All
+                Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({ once: true, offset: 100, duration: 800 });
+
+        // Cart Management
+        let cart = JSON.parse(localStorage.getItem('islamicCart')) || [];
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartCountBadge');
+            if (badge) {
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.innerText = total;
+            }
+        }
+
+        updateCartBadge();
+
+        // Dark Mode Toggle
+        const darkToggle = document.getElementById('darkModeToggle');
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+        }
+
+        darkToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        });
+
+        // Listen for storage changes
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'islamicCart') {
+                cart = JSON.parse(e.newValue) || [];
+                updateCartBadge();
+            }
+        });
+
+        // Form Validation
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        function validateForm() {
+            let isValid = true;
+
+            // Name validation
+            const name = document.getElementById('name').value.trim();
+            const nameError = document.getElementById('nameError');
+            if (name === '') {
+                nameError.classList.add('show');
+                isValid = false;
+            } else {
+                nameError.classList.remove('show');
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+            if (email === '' || !emailRegex.test(email)) {
+                emailError.classList.add('show');
+                isValid = false;
+            } else {
+                emailError.classList.remove('show');
+            }
+
+            // Phone validation (optional but if filled, validate format)
+            const phone = document.getElementById('phone').value.trim();
+            const phoneError = document.getElementById('phoneError');
+            if (phone !== '') {
+                const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{3,4}$/;
+                if (!phoneRegex.test(phone)) {
+                    phoneError.classList.add('show');
+                    isValid = false;
+                } else {
+                    phoneError.classList.remove('show');
+                }
+            } else {
+                phoneError.classList.remove('show');
+            }
+
+            // Subject validation
+            const subject = document.getElementById('subject').value;
+            const subjectError = document.getElementById('subjectError');
+            if (subject === '') {
+                subjectError.classList.add('show');
+                isValid = false;
+            } else {
+                subjectError.classList.remove('show');
+            }
+
+            // Message validation
+            const message = document.getElementById('message').value.trim();
+            const messageError = document.getElementById('messageError');
+            if (message === '') {
+                messageError.classList.add('show');
+                isValid = false;
+            } else {
+                messageError.classList.remove('show');
+            }
+
+            return isValid;
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (validateForm()) {
+                // Show success message
+                successMessage.classList.add('show');
+
+                // Clear form
+                contactForm.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== "#" && href !== "#!" && href !== "#contactForm") {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTopBtn = document.createElement('button');
+        backToTopBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
+        backToTopBtn.className = 'btn btn-success rounded-circle position-fixed';
+        backToTopBtn.style.cssText = 'bottom: 30px; right: 30px; width: 50px; height: 50px; display: none; z-index: 1000;';
+        document.body.appendChild(backToTopBtn);
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
